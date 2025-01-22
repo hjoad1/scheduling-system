@@ -25,6 +25,13 @@ class Tutor_Subject(models.Model):
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
+    class Meta:
+        # Ensure the combination of tutor and subject is unique
+        unique_together = ('tutor', 'subject')
+
+    def __str__(self):
+        return f"{self.tutor.name} teaches {self.subject.name}"
+
 class Student(models.Model):
     name = models.CharField(max_length=255)
     timezone = models.ForeignKey(Timezone, on_delete=models.CASCADE)
